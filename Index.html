@@ -1,39 +1,99 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>محاكي ATM - NFC</title>
+    <title>Checkout</title>
     <style>
-        body { font-family: Arial, sans-serif; text-align: center; background: #f0f2f5; padding: 20px; }
-        .card { background: white; padding: 20px; border-radius: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); max-width: 400px; margin: auto; }
-        button { width: 80%; padding: 15px; margin: 10px; border: none; border-radius: 8px; cursor: pointer; font-size: 16px; }
-        .btn-primary { background: #007bff; color: white; }
-        .btn-danger { background: #dc3545; color: white; }
-        .status { margin-top: 20px; font-weight: bold; color: #555; }
+        * {
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        body {
+            background-color: #f4f6f9;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .checkout-container {
+            width: 100%;
+            max-width: 380px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        h2 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+        }
+        .pay-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 16px;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: bold;
+            color: #ffffff;
+            text-decoration: none;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s ease, opacity 0.2s ease;
+        }
+        .pay-btn:hover {
+            transform: translateY(-2px);
+            opacity: 0.95;
+        }
+        /* ألوان مربعات طرق الدفع المخصصة */
+        .instapay {
+            background-color: #5b21b6; /* بنفسجي هادئ لإنستا باي */
+        }
+        .vodafone {
+            background-color: #dc2626; /* أحمر لفودافون كاش */
+        }
+        .etisalat {
+            background-color: #059669; /* أخضر لإتصالات كاش */
+        }
+        .orange {
+            background-color: #363636; /* برتقالي لأورنج كاش */
+        }
     </style>
 </head>
 <body>
 
-<div class="card">
-    <h2 id="title">نظام NFC البنكي</h2>
-    <div id="lang-sector">
-        <button class="btn-primary" onclick="setLang('ar')">العربية</button>
-        <button class="btn-primary" onclick="setLang('en')">English</button>
+    <div class="checkout-container">
+        <h2>Select Payment Method</h2>
+
+        <!-- InstaPay Direct Link -->
+        <a href="https://ipn.eg/S/ashraf_elfakharany_t/instapay/4da38Aw
+Click the link to send money to
+ashraf_elfakharany_t@instapay
+Powered by InstaPay" class="pay-btn instapay" target="_blank">
+            InstaPay
+        </a>
+
+        <!-- Vodafone Cash Direct Link / USSD -->
+        <a href="tel:*9*1*YOUR_WALLET_NUMBER*AMOUNT#" class="pay-btn vodafone">
+            Vodafone Cash
+        </a>
+
+        <!-- Etisalat Cash -->
+        <a href="tel:*511#" class="pay-btn etisalat">
+            Etisalat Cash
+        </a>
+
+        <!-- Orange Cash -->
+        <a href="https://maps.app.goo.gl/UvBsvNZi6t8tc9ss5" class="pay-btn orange">
+            Ratings on Google Maps
+        </a>
     </div>
 
-    <div id="menu" style="display:none;">
-        <h3 id="welcome">مرحباً بك</h3>
-        <button class="btn-primary" onclick="startProcess('withdraw')">سحب (Withdraw)</button>
-        <button class="btn-primary" onclick="startProcess('deposit')">إيداع (Deposit)</button>
-        <button class="btn-primary" onclick="startProcess('balance')">كشف حساب (Balance)</button>
-    </div>
-
-    <div class="status" id="status">برجاء اختيار اللغة</div>
-</div>
-
-<script>
-    let currentBalance = 1000; // رصيد افتراضي لو الكارت جديد
+</body>
+</html>
     let language = 'ar';
 
     const text = {
